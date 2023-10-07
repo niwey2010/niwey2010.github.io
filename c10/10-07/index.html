@@ -1,0 +1,1219 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="文档">
+      
+      
+        <meta name="author" content="Neil">
+      
+      
+      
+        <link rel="prev" href="../10-05/">
+      
+      
+        <link rel="next" href="../../c99/test-redis-copy/">
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
+    
+    
+      
+        <title>java随机数生成和运维测试规范 - 文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bd3936ea.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#java" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="文档" class="md-header__button md-logo" aria-label="文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              java随机数生成和运维测试规范
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="文档" class="md-nav__button md-logo" aria-label="文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c01/01-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markdown语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c01/01-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    组件
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            组件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-02/04-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nexus 3.0（仓库管理 ）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LETTUCE使用说明(redis的java库)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nssm (windows下将程序安装为服务）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis cluster-环境构建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis cluster-场景测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-22/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis内存占用分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-21/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    linux系统资源限制管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nginx 安装和使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    confd-轻量级配置工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-10/04-10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    etcd cluster-可用性测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模版机(centos7)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-13/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模版机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-14/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH 密钥对
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-16/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分布式任务调度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-17/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ZooKeeper安装配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-18/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sonarqube代码检测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-19/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    监控系统的高性能组件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-20/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    consul客户端安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    流程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            流程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog自动化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jenkins (持续交付)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    git无密码push
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线上服务器监控
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    java随机数生成和运维测试规范
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    java随机数生成和运维测试规范
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1.  生成规范的考虑原则
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 可预测性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 性能
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    3.运维交付
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 质量控制
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    参考:
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    脚本
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            脚本
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c99/test-redis-copy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis复制脚本
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1.  生成规范的考虑原则
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 可预测性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 性能
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    3.运维交付
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 质量控制
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    参考:
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="java">JAVA源于随机数生成的规范建议</h1>
+<p>生成随机数是一个常用的功能, JAVA/JVM也提供很多不同的选择让开发者决定如何生成随机数.</p>
+<p>但是不同的选择会产生不同的后果, 最后影响的不仅仅是开发, 测试,流程,运维,安全都会产生连锁反应.因此需要在此讨论,澄清,并提供规范的建议.  以下是开发实现和安全运维的建议.</p>
+<h2 id="1">1.  生成规范的考虑原则</h2>
+<p>JAVA有以下几个生成随机数的方式:</p>
+<ul>
+<li>Random</li>
+<li>TheadLocalRandom</li>
+<li>SecureRandom</li>
+</ul>
+<p>关于规范应从以下几点考虑:</p>
+<ul>
+<li>随机数可预测性 </li>
+<li>性能</li>
+<li>运维交付复杂度</li>
+<li>质量控制</li>
+</ul>
+<h2 id="2">2. 可预测性</h2>
+<p>Random和ThreadLocalRandom都是可预测的, 两者使用一致的弱伪<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Random.html#Random--">随机算法</a>. 使得攻击者可以模拟出下一个随机数的值. 在不指定种子的情况下,使用系统时间作为种子.</p>
+<p>SecureRandom是更安全的生成随机数的方式. 在不同的操作系统下使用默认SecureRandom()会使用不同的算法.</p>
+<pre><code class="language-java">SecureRandom random = new SecureRandom();
+byte[] values = new byte[20];
+random.nextBytes(values);
+</code></pre>
+<p>比如windows下使用SHA1PRNG, 而linux下使用NativePRNG. 也可以通过SecureRandom.getInstance方法指定算法. </p>
+<pre><code class="language-java">SecureRandom secureRandom3 = SecureRandom.getInstance(&quot;SHA1PRNG&quot;);
+SecureRandom secureRandom2 = SecureRandom.getInstance(&quot;SHA1PRNG&quot;, &quot;SUN&quot;);
+</code></pre>
+<p>完整的操作系统支持随机数生成算法列表在 <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SecureRandomImp">这里</a>. 其中在linux和macos下, 支持以下几种:</p>
+<ol>
+<li>NativePRNG** Sun</li>
+<li>SHA1PRNG**   Sun</li>
+<li>NativePRNGBlocking   Sun</li>
+<li>NativePRNGNonBlocking</li>
+</ol>
+<p>SHA1PRNG是纯java实现, 在弱种前提下,仍然是可以被跟踪的. 如果对SHA1PRNG的随机性有疑问, 需要使用Native的PRNG算法.  </p>
+<p>NativePRNG的相关算法都是从操作系统获得随机种子, 在linux和macos下/dev/random和/dev/urandom可以获得的随机种子. 算法和种子文件的关系如下:</p>
+<ul>
+<li>NativePRNG (nextBytes() uses /dev/urandom, generateSeed() uses /dev/random)</li>
+<li>NativePRNGBlocking (nextBytes() and generateSeed() use /dev/random)</li>
+<li>NativePRNGNonBlocking (nextBytes() and generateSeed() use /dev/urandom)</li>
+</ul>
+<p><strong><em>/dev/random和/dev/urandom的区别下面提到</em></strong> </p>
+<p>虽然man里面提到random的随机性大于urandom,但是有<a href="https://www.2uo.de/myths-about-urandom/">文章</a>指出,两者没有区别.</p>
+<p>所以以下安全建议是需要参考:</p>
+<ol>
+<li>Random和ThreadLocalRandom都是可以简单跟踪的, 随机性和安全性很低</li>
+<li>SHA1PRNG是windows下默认的SecureRandom算法, 随机性稍高.</li>
+<li>/dev/random和/dev/urandom随机性是一样的. 建议使用基于/dev/urandom的算法, 虽然官方更认同/dev/random</li>
+<li>使用SecureRandom, 建议使用getInstance或getInstanceStrong,指定算法,而不要使用默认的构造函数.因为开发机是windows, 测试和生产机是linux</li>
+</ol>
+<h2 id="3">3. 性能</h2>
+<p>所有随机api都是继承Random, Random是线程安全的, 所以大家都是线程安全的.  </p>
+<p>但是多线程下,Random的性能不好,JDK 1.7以后引入了ThreadLocalRandom.  所以多线程环境下, 不能使用Random, 而要用ThreadLocalRandom.  </p>
+<p>使用/dev/random的场景下, 阻塞是比较严重的,可以通过在shell下执行以下命令体验一下到底有多严重:</p>
+<pre><code class="language-bash">head -n 1 /dev/random
+</code></pre>
+<p>/dev/urandom是<strong>非阻塞</strong>的, 即使表面上随机性不如/dev/random, 但是<a href="https://www.2uo.de/myths-about-urandom/">实际情况</a>可能并不是这样.    </p>
+<p>所以以下性能建议是需要参考的:</p>
+<ol>
+<li>尽量不要使用Random,即使在随机性要求不高的情况下</li>
+<li>使用SecureRandom, 建议使用getInstance或getInstanceStrong,指定算法,而不要使用默认的构造函数.因为开发机是windows, 测试和生产机是linux</li>
+<li>如果不能忍受阻塞, 不要使用基于/dev/random的算法获取随机数</li>
+<li>高质量的随机性值得花费CPU资源去获取, 即使在多线程的环境下, 同一个场景使用同一个全局SecureRandom是可以被接受的,即使阻塞也只出现在对象实例化阶段.  </li>
+<li>在一些特定场景下, 通过使用命令行参数或者<a href="https://docs.oracle.com/cd/E13209_01/wlcp/wlss30/configwlss/jvmrand.html">修改JRE里面java.security文件</a>,可以重定向默认构造函数的算法以及将/dev/random的算法重定向到/dev/urandom里 .  </li>
+</ol>
+<p>命令行参数覆盖举例:</p>
+<pre><code class="language-bash">-Djava.security.debug=&quot;provider,engine=SecureRandom&quot;
+</code></pre>
+<p>修改java.security举例: </p>
+<pre><code class="language-bash">securerandom.source=file:/dev/urandom
+securerandom.strongAlgorithms=NativePRNGBlocking:SUN
+</code></pre>
+<h2 id="3_1">3.运维交付</h2>
+<p>运维交付建议:</p>
+<ol>
+<li>对于现有第三方系统, 在出现阻塞的情况下, 通过命令行测试验证是securerandom阻塞问题后,建议修改java.security将source重写到/dev/urandom上解决问题.</li>
+<li>对于自有系统,建议将算法和source直接修改成非阻塞的方式,制作进模板机. </li>
+</ol>
+<h2 id="4">4. 质量控制</h2>
+<p>质量交付建议:</p>
+<ol>
+<li>sonar保留对所有系统Random漏洞的最高级别报警</li>
+<li>对于所有系统应保留对ThreadLocalRandom的漏洞报警,级别可以降低</li>
+<li>对于登陆类,促销活动, 金融类, 券凭证等安全级别较高系统,应对非SecureRandom类以及SHA1PRNG算法提示漏洞</li>
+</ol>
+<h2 id="_1">参考:</h2>
+<p>https://tersesystems.com/blog/2015/12/17/the-right-way-to-use-securerandom/</p>
+<p>https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SecureRandomImp</p>
+<p>https://www.2uo.de/myths-about-urandom/</p>
+<p>http://ju.outofmemory.cn/entry/286621</p>
+<p>https://www.javamex.com/tutorials/random_numbers/securerandom.shtml</p>
+<p>https://docs.oracle.com/cd/E13209_01/wlcp/wlss30/configwlss/jvmrand.html</p>
+<p>https://docs.oracle.com/javase/8/docs/api/java/util/Random.html#Random--</p>
+<p>https://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html</p>
+<p>https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadLocalRandom.html</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.94c44541.min.js"></script>
+      
+    
+  </body>
+</html>

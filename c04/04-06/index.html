@@ -1,0 +1,1470 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="文档">
+      
+      
+        <meta name="author" content="Neil">
+      
+      
+      
+        <link rel="prev" href="../04-04/">
+      
+      
+        <link rel="next" href="../04-07/">
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
+    
+    
+      
+        <title>redis cluster-环境构建 - 文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bd3936ea.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#redis-cluster" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="文档" class="md-header__button md-logo" aria-label="文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              redis cluster-环境构建
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="文档" class="md-nav__button md-logo" aria-label="文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c01/01-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markdown语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c01/01-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    组件
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            组件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-02/04-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nexus 3.0（仓库管理 ）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LETTUCE使用说明(redis的java库)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nssm (windows下将程序安装为服务）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    redis cluster-环境构建
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    redis cluster-环境构建
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#redis-cluster-" class="md-nav__link">
+    redis cluster-环境构建
+  </a>
+  
+    <nav class="md-nav" aria-label="redis cluster-环境构建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redis-326" class="md-nav__link">
+    redis 3.2.6 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    文档
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    离线安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    实例创建向导
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iptables" class="md-nav__link">
+    iptables配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    备注
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ruby-231" class="md-nav__link">
+    ruby 2.3.1 安装
+  </a>
+  
+    <nav class="md-nav" aria-label="ruby 2.3.1 安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    文档
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zlib-1211" class="md-nav__link">
+    离线安装 zlib 1.2.11（依赖）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ruby-231_1" class="md-nav__link">
+    离线安装 ruby 2.3.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-331" class="md-nav__link">
+    离线安装 redis-3.3.1库
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis-cluster_1" class="md-nav__link">
+    redis cluster 构建
+  </a>
+  
+    <nav class="md-nav" aria-label="redis cluster 构建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    文档
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    目录创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redisconf" class="md-nav__link">
+    redis.conf 模板（每个文件夹都需要配置）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    启动 redis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    创建集群
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    测试配置成功
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis cluster-场景测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-22/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis内存占用分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-21/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    linux系统资源限制管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nginx 安装和使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    confd-轻量级配置工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-10/04-10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    etcd cluster-可用性测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模版机(centos7)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-13/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模版机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-14/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH 密钥对
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-16/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分布式任务调度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-17/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ZooKeeper安装配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-18/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sonarqube代码检测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-19/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    监控系统的高性能组件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-20/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    consul客户端安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    流程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            流程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c10/10-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog自动化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c10/10-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jenkins (持续交付)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c10/10-04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    git无密码push
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c10/10-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线上服务器监控
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c10/10-07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    java随机数生成和运维测试规范
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    脚本
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            脚本
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c99/test-redis-copy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis复制脚本
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#redis-cluster-" class="md-nav__link">
+    redis cluster-环境构建
+  </a>
+  
+    <nav class="md-nav" aria-label="redis cluster-环境构建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redis-326" class="md-nav__link">
+    redis 3.2.6 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    文档
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    离线安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    实例创建向导
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iptables" class="md-nav__link">
+    iptables配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    备注
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ruby-231" class="md-nav__link">
+    ruby 2.3.1 安装
+  </a>
+  
+    <nav class="md-nav" aria-label="ruby 2.3.1 安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    文档
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zlib-1211" class="md-nav__link">
+    离线安装 zlib 1.2.11（依赖）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ruby-231_1" class="md-nav__link">
+    离线安装 ruby 2.3.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis-331" class="md-nav__link">
+    离线安装 redis-3.3.1库
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redis-cluster_1" class="md-nav__link">
+    redis cluster 构建
+  </a>
+  
+    <nav class="md-nav" aria-label="redis cluster 构建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    文档
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    目录创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redisconf" class="md-nav__link">
+    redis.conf 模板（每个文件夹都需要配置）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    启动 redis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    创建集群
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    测试配置成功
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="redis-cluster">redis cluster</h1>
+<hr />
+<h2 id="redis-cluster-">redis cluster-环境构建</h2>
+<pre><code class="language-text">操作系统:
+CentOS release 6.5 (Final)
+
+需要的组件：
+redis 3.2.6 (redis-server,redis-trib.rb，redis-cli) , 
+ruby 2.3.6 (redis-3.3.1库,gem) 构建redis cluster，
+</code></pre>
+<hr />
+<h3 id="redis-326">redis 3.2.6 安装</h3>
+<h3 id="_1">文档</h3>
+<pre><code class="language-text">文档：http://redis.io/download
+</code></pre>
+<h3 id="_2">离线安装</h3>
+<pre><code class="language-text">安装包路径： http://download.redis.io/releases/redis-3.2.6.tar.gz
+$ tar xzf redis-3.2.6.tar.gz
+$ cd redis-3.2.6
+$ make
+$ sudo make PREFIX=/usr/local/redis install
+</code></pre>
+<h3 id="_3">实例创建向导</h3>
+<pre><code class="language-text">$ cd redis-3.2.6/utils
+$ sh install_server.sh
+</code></pre>
+<h3 id="iptables">iptables配置</h3>
+<pre><code class="language-text">sudo iptables -L INPUT --line-numbers
+
+
+# 要删除一个INPUT链的第3条规则
+iptables -D INPUT 3
+
+# 永久保存休息
+service iptables save
+
+</code></pre>
+<h3 id="_4">备注</h3>
+<pre><code class="language-text"># 定制安装目录
+./configure --prefix=/usr/local/tcl/ 
+# 清除所有生成的文件
+make distclean
+# 清除之前编译的可执行文件及配置文件
+make clean
+# 根据Makefile编译源代码，连接，生成目标文件，可执行文件。
+make
+# 将编译成功的可执行文件安装到系统目录中，一般为/usr/local/bin目录
+make install
+# 卸载
+make uninstall
+</code></pre>
+<hr />
+<h2 id="ruby-231">ruby 2.3.1 安装</h2>
+<h3 id="_5">文档</h3>
+<pre><code class="language-text">文档：https://www.ruby-lang.org/en/downloads/
+</code></pre>
+<h3 id="zlib-1211">离线安装 zlib 1.2.11（依赖）</h3>
+<pre><code class="language-text">安装包页面：http://zlib.net
+安装包路径：http://zlib.net/zlib-1.2.11.tar.gz
+安装命令：
+$tar -xvzf zlib-1.2.11.tar.gz
+$cd zlib
+$./configure
+$make
+$sudo make install
+</code></pre>
+<h3 id="ruby-231_1">离线安装 ruby 2.3.1</h3>
+<pre><code class="language-text">安装包地址：https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz
+安装命令：
+$tar -xvzf ruby-2.3.1.tar.gz
+$cd ruby
+$ ./configure
+$ make
+$ sudo make install
+</code></pre>
+<h3 id="redis-331">离线安装 redis-3.3.1库</h3>
+<pre><code class="language-text">安装包页面：https://rubygems.org/gems/redis
+安装包路径：https://rubygems.org/downloads/redis-3.3.1.gem
+安装命令：
+gem install redis-3.3.1.gem --local
+</code></pre>
+<hr />
+<h2 id="redis-cluster_1">redis cluster 构建</h2>
+<h3 id="_6">文档</h3>
+<pre><code class="language-text">文档：http://redis.io/topics/cluster-tutorial
+</code></pre>
+<h3 id="_7">目录创建</h3>
+<pre><code class="language-text">mkdir cluster-test
+cd cluster-test
+mkdir 7000 7001 7002 7003 7004 7005
+cd 7000
+nano redis.conf
+# 注：7000，7001，7002，7003，7004，7005文件夹 依次创建
+</code></pre>
+<h3 id="redisconf">redis.conf 模板（每个文件夹都需要配置）</h3>
+<pre><code class="language-text">port 7000
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+appendonly no
+protected-mode no
+</code></pre>
+<h3 id="redis">启动 redis</h3>
+<pre><code class="language-text">cd 7000
+redis-server ./redis.conf 
+# 注：依次开启 7000，7001，7002，7003，7004，7005，
+
+</code></pre>
+<h3 id="_8">创建集群</h3>
+<pre><code class="language-text">redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
+# 注:生产环境，127.0.0.1 需要改成 对应的机器ip
+# redis主从关系：7000 和 7003，7001 和 7004，7002和7005，
+</code></pre>
+<h3 id="_9">测试配置成功</h3>
+<pre><code class="language-text">$ redis-cli -c -p 7000
+redis 127.0.0.1:7000&gt; set foo bar
+-&gt; Redirected to slot [12182] located at 127.0.0.1:7002
+OK
+redis 127.0.0.1:7002&gt; set hello world
+-&gt; Redirected to slot [866] located at 127.0.0.1:7000
+OK
+redis 127.0.0.1:7000&gt; get foo
+-&gt; Redirected to slot [12182] located at 127.0.0.1:7002
+&quot;bar&quot;
+redis 127.0.0.1:7000&gt; get hello
+-&gt; Redirected to slot [866] located at 127.0.0.1:7000
+&quot;world&quot;
+</code></pre>
+<hr />
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.94c44541.min.js"></script>
+      
+    
+  </body>
+</html>

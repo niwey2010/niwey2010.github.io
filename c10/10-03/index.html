@@ -1,0 +1,1547 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="文档">
+      
+      
+        <meta name="author" content="Neil">
+      
+      
+      
+        <link rel="prev" href="../10-01/">
+      
+      
+        <link rel="next" href="../10-04/">
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
+    
+    
+      
+        <title>jenkins (持续交付) - 文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bd3936ea.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jenkins" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="文档" class="md-header__button md-logo" aria-label="文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              jenkins (持续交付)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="文档" class="md-nav__button md-logo" aria-label="文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c01/01-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markdown语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c01/01-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    组件
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            组件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-02/04-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nexus 3.0（仓库管理 ）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LETTUCE使用说明(redis的java库)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nssm (windows下将程序安装为服务）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis cluster-环境构建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis cluster-场景测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-22/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis内存占用分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-21/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    linux系统资源限制管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nginx 安装和使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-09/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    confd-轻量级配置工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-10/04-10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    etcd cluster-可用性测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模版机(centos7)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-13/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模版机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-14/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH 密钥对
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-16/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分布式任务调度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-17/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ZooKeeper安装配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-18/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sonarqube代码检测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-19/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    监控系统的高性能组件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/04-20/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    consul客户端安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    流程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            流程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog自动化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    jenkins (持续交付)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    jenkins (持续交付)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    0. 相关文档
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 安装
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#10-rpm" class="md-nav__link">
+    1.0 rpm安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-java" class="md-nav__link">
+    1.1 离线安装java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-jenkins" class="md-nav__link">
+    1.2 离线安装jenkins
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-root" class="md-nav__link">
+    1.3 修改目录的相应权限，修改root为当前用户。
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 常用配置
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 常用配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 全局变量 (非常重要)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 邮件通知
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-git" class="md-nav__link">
+    2.3 配置git
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    2.4 定时拉取编译
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-ssh" class="md-nav__link">
+    2.5 SSH发布
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-configure-global-security" class="md-nav__link">
+    2.6 全局安全设置(Configure Global Security)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    2.7 迁移和备份
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 插件
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 插件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-ssh-agent-plugin" class="md-nav__link">
+    3.1 SSH Agent Plugin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-build-user-vars-plugin" class="md-nav__link">
+    3.2 Build User Vars Plugin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-mailer" class="md-nav__link">
+    3.3 Mailer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 环境设置
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 环境设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    4.1 测试环境
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-pipeline" class="md-nav__link">
+    5. pipeline
+  </a>
+  
+    <nav class="md-nav" aria-label="5. pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-ssh" class="md-nav__link">
+    5.1 ssh 发布脚本
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    git无密码push
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线上服务器监控
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    java随机数生成和运维测试规范
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    脚本
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            脚本
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c99/test-redis-copy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redis复制脚本
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    0. 相关文档
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 安装
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#10-rpm" class="md-nav__link">
+    1.0 rpm安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-java" class="md-nav__link">
+    1.1 离线安装java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-jenkins" class="md-nav__link">
+    1.2 离线安装jenkins
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-root" class="md-nav__link">
+    1.3 修改目录的相应权限，修改root为当前用户。
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 常用配置
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 常用配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 全局变量 (非常重要)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 邮件通知
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-git" class="md-nav__link">
+    2.3 配置git
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    2.4 定时拉取编译
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-ssh" class="md-nav__link">
+    2.5 SSH发布
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-configure-global-security" class="md-nav__link">
+    2.6 全局安全设置(Configure Global Security)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    2.7 迁移和备份
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 插件
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 插件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-ssh-agent-plugin" class="md-nav__link">
+    3.1 SSH Agent Plugin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-build-user-vars-plugin" class="md-nav__link">
+    3.2 Build User Vars Plugin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-mailer" class="md-nav__link">
+    3.3 Mailer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 环境设置
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 环境设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    4.1 测试环境
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-pipeline" class="md-nav__link">
+    5. pipeline
+  </a>
+  
+    <nav class="md-nav" aria-label="5. pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-ssh" class="md-nav__link">
+    5.1 ssh 发布脚本
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="jenkins">jenkins (持续交付)</h1>
+<p>持续交付, 简称：CD</p>
+<hr />
+<h2 id="0">0. 相关文档</h2>
+<ul>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Administering+Jenkins">JENKINS_HOME directory</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions">Installing Jenkins on Red Hat distributions</a></li>
+<li><a href="http://www.oracle.com/technetwork/cn/java/javase/downloads/index.html">Java package download</a></li>
+<li>https://testerhome.com/topics/4043</li>
+<li>https://segmentfault.com/a/1190000002895521</li>
+<li>http://www.jianshu.com/p/a154f2a1d0c3</li>
+<li>http://benjaminwhx.com/2016/05/16/Jenkins2.3%E9%87%8D%E7%82%B9%E5%A4%87%E5%BF%98/</li>
+<li>http://gold.xitu.io/entry/5792b7320a2b580061ab0e27</li>
+</ul>
+<hr />
+<h2 id="1">1. 安装</h2>
+<h3 id="10-rpm">1.0 rpm安装</h3>
+<pre><code class="language-text">首先通过  rpm -q &lt;关键字&gt; 可以查询到rpm包的名字
+然后 调用 rpm -e &lt;包的名字&gt; 删除特定rpm包
+如果遇到依赖，无法删除，使用 rpm -e --nodeps &lt;包的名字&gt; 不检查依赖，直接删除rpm包
+如果恰好有多个包叫同样的名字，使用 rpm -e --allmatches --nodeps &lt;包的名字&gt; 删除所有相同名字的包， 并忽略依赖
+</code></pre>
+<h3 id="11-java">1.1 离线安装java</h3>
+<pre><code class="language-text">wget --no-check-certificate --no-cookie --header &quot;Cookie: oraclelicense=accept-securebackup-cookie;&quot; http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.rpm
+rpm -ivh 8u73-b02/jdk-8u73-linux-x64.rpm
+java -version
+</code></pre>
+<h3 id="12-jenkins">1.2 离线安装jenkins</h3>
+<pre><code class="language-text">wget http://pkg.jenkins-ci.org/redhat-stable/jenkins-2.7.4-1.1.noarch.rpm
+rpm -ivh jenkins-2.7.4-1.1.noarch.rpm
+sudo service jenkins restart
+</code></pre>
+<h3 id="13-root">1.3 修改目录的相应权限，修改root为当前用户。</h3>
+<pre><code class="language-text">配置目录： /etc/sysconfig/jenkins
+程序： /var/lib/jenkins
+cache：/var/cache/jenkins 
+日志：/var/log/jenkins
+</code></pre>
+<hr />
+<h2 id="2">2. 常用配置</h2>
+<h3 id="21">2.1 全局变量 (非常重要)</h3>
+<pre><code>jenkins -&gt; 管理Jenkins -&gt; 系统设置 -&gt; 全局属性 -&gt; Environment variables
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">序号</th>
+<th style="text-align: left;">变量</th>
+<th style="text-align: left;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">jenkins_email_to_list</td>
+<td style="text-align: left;">邮件收件人列表，例：x@xx.com 或者 x@xx.com,y@xx.com</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">jenkins_email_cc_list</td>
+<td style="text-align: left;">邮件抄送人列表，例：x@xx.com 或者 x@xx.com,y@xx.com</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">jenkins_project_run_test</td>
+<td style="text-align: left;">是否执行代码中的单元测试，例：只有设置为1，才会执行单元测试（默认为0）</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">jenkins_git_branch</td>
+<td style="text-align: left;">拉取项目的git分支，例：dev，建议release</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">jenkins_input_approve_list</td>
+<td style="text-align: left;">input中可确认通过的用户列表，例：user1，user2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22">2.2 邮件通知</h3>
+<h3 id="23-git">2.3 配置git</h3>
+<h3 id="24">2.4 定时拉取编译</h3>
+<h3 id="25-ssh">2.5 SSH发布</h3>
+<h3 id="26-configure-global-security">2.6 全局安全设置(Configure Global Security)</h3>
+<h3 id="27">2.7 迁移和备份</h3>
+<hr />
+<h2 id="3">3. 插件</h2>
+<h3 id="31-ssh-agent-plugin">3.1 SSH Agent Plugin</h3>
+<p><a href="https://wiki.jenkins-ci.org/display/JENKINS/SSH+Agent+Plugin">SSH Agent Plugin</a></p>
+<h3 id="32-build-user-vars-plugin">3.2 Build User Vars Plugin</h3>
+<p><a href="https://wiki.jenkins-ci.org/display/JENKINS/Build+User+Vars+Plugin">Build User Vars Plugin</a></p>
+<h3 id="33-mailer">3.3 Mailer</h3>
+<p><a href="https://wiki.jenkins-ci.org/display/JENKINS/Mailer">Mailer</a></p>
+<hr />
+<h2 id="4">4. 环境设置</h2>
+<h3 id="41">4.1 测试环境</h3>
+<pre><code class="language-text">1) jenkins 发布机
+ip：192.168.1.1
+地址：http://192.168.1.1:8888/
+pipeline git地址：http://192.168.1.2/project/jenkins-pipeline-script
+
+2) 测试服务器
+ip： 192.168.1.3
+软件路径：/opt/app/
+日志路径：/opt/log/
+</code></pre>
+<hr />
+<h2 id="5-pipeline">5. pipeline</h2>
+<h3 id="51-ssh">5.1 ssh 发布脚本</h3>
+<pre><code class="language-text">发布脚本：
+
+1) 声明变量: 
+1.1 PROJECT_NAME
+
+2) 检查备份文件夹： /opt/backup/${PROJECT_NAME}
+2.1 不存在就新建
+
+3) 检查app发布文件夹：/opt/app/${PROJECT_NAME}
+3.1 存在
+3.1.1 先备份发布文件夹
+3.1.2 停止程序进程
+3.1.3 再删除文件
+
+3.2 不存在
+3.2.1 创建发布文件夹
+
+4) 部署
+4.0 
+
+4.1 上传tar包到远程服务器上
+本地：build/distributions/*.tar 
+远程：/tmp
+
+4.2 解压到发布文件夹
+tar /opt/app/${PROJECT_NAME}
+
+
+5) 开启程序进程
+</code></pre>
+<hr />
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.94c44541.min.js"></script>
+      
+    
+  </body>
+</html>
